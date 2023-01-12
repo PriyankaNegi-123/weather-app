@@ -53,8 +53,8 @@ input{
     background: rgb(5, 10, 10, 0.5); 
     text-align: center;
     padding: 2rem;
-    height: 20rem;
-    width: auto;
+    height: auto;
+    width: 100%;
     color:white;
     border-radius: 1rem;
     box-shadow: 5px 5px 10px black;

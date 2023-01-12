@@ -24,8 +24,8 @@ let getWeather = ()=>{
             console.log(data.weather[0].description);
             weatherEl.innerHTML = `${data.weather[0].description}`;
             console.log(data.weather[0].icon);
-            // document.getElementById("crypto").innerHTML = `<img src=${data.weather[0].icon}>`;
-            // document.getElementById("crypto").style.backgroundImage = `url(${data.weather[0].icon})`;
+            // document.getElementById("crypto").innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
+            // document.getElementById("crypto").style.backgroundImage = `url(${data.weather[0].icon}.png)`;
             console.log(data.main.temp);
             tempEl.innerHTML = `${data.main.temp}&deg;C`;
             inputEl.value = "";
