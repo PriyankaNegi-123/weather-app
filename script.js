@@ -1,42 +1,48 @@
-let inputEl = document.getElementById("input");
-let searchEl = document.getElementById("btn");
-let outputEl = document.getElementById("output");
-let cityEl = document.getElementById("city");
-let weatherEl = document.getElementById("weather");
-let tempEl = document.getElementById("temp");
-let imgEl = document.querySelector("img");
+'use strict'
 
-let getWeather = ()=>{
-    let city = inputEl.value;
-    cityEl.innerText = inputEl.value;
-    if(city.length == ""){
-        cityEl.innerHTML = `Please Enter City name`;
-    }
-    else{
-        let apiKey = "cd2fe1426149cb41b1b83a31be21112e";
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-        fetch(url)
-        .then((resp)=> resp.json())
-        .then((data) => {
-            console.log(data);
-            console.log(data.name);
-            cityEl.innerHTML = `${data.name}`;
-            console.log(data.weather[0].description);
-            weatherEl.innerHTML = `${data.weather[0].description}`;
-            console.log(data.weather[0].icon);
-            // document.getElementById("crypto").innerHTML = `<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">`;
-            // document.getElementById("crypto").style.backgroundImage = `url(${data.weather[0].icon}.png)`;
-            console.log(data.main.temp);
-            tempEl.innerHTML = `${data.main.temp}&deg;C`;
-            inputEl.value = "";
-        })
-        .catch(() => {
-            if(cityEl.innerHTML== "undefined"){
-                cityEl.innerHTML= `City not found`
-            }
-        })
+let btnEl = document.getElementById("btn");
+let inputEl = document.getElementById("city");
+let resultEl = document.getElementById("result");
+
+btnEl.addEventListener("click", ()=>{
+    let cityName = inputEl.value;
+    let apiKey = `cd2fe1426149cb41b1b83a31be21112e`;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
+    fetch(url)
+    .then((resp) => resp.json())
+    .then((data) => {
+        console.log(data);
+        resultEl.innerHTML = `
+        <img src= "http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" class="img">
+        <h2>${data.name}</h2>
+        <div class="wrapper">
+        <div class="data-wrapper">
+            <h4>Weather: </h4>
+            <span>${data.weather[0].description} </span>
+        </div>
+        </div>
+        <div class="wrapper">
+        <div class="data-wrapper">
+            <h4>Temp max: </h4>
+            <span>${data.main.temp_max
+            } &degC</span>
+        </div>
+        </div>
+        <div class="wrapper">
+        <div class="data-wrapper">
+            <h4>Temp min: </h4>
+            <span>${data.main.temp_min
+            } &degC</span>
+        </div>
+        </div>
+        `;
+    }).catch(()=>{
+        if(cityName == ""){
+            resultEl.innerHTML = `<h3 style="color:#ff465a; margin-top: 2rem; text-align: center" > Please enter a city name</h3>`
         }
-    }
+        else{
+            resultEl.innerHTML = `<h3 style="color:#ff465a;  margin-top: 2rem; text-align: center"> Please enter a VALID city name</h3>`
+        }
+    })
+})
 
-
-searchEl.addEventListener("click", getWeather)
